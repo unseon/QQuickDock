@@ -18,3 +18,5 @@ include(deployment.pri)
 HEADERS += \
     qdockablewindow.h \
     qdockgroup.h
+
+DISTFILES +=

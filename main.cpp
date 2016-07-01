@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QtQml>
 
 #include "qdockablewindow.h"
 
@@ -7,19 +8,12 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-//    QQmlApplicationEngine engine;
-//    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    qmlRegisterType<QDockableWindow>("QtQuick.Window.Dock", 1, 0, "DockableWindow");
 
 
-    QDockableWindow* dockWindow01 = new QDockableWindow();
-    dockWindow01->id = 1;
-    dockWindow01->resize(400, 400);
+    QQmlApplicationEngine engine;
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    QDockableWindow* dockWindow02 = new QDockableWindow();
-    dockWindow02->id = 2;
-    dockWindow02->show();
-    dockWindow02->resize(400, 400);
-    dockWindow01->show();
 
 
     return app.exec();
