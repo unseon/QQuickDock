@@ -5,12 +5,16 @@ QDockGroup::QDockGroup(QObject *parent) : QObject(parent)
 
 }
 
-void QDockGroup::addDockWindow(QDockableWindow* window)
+QDockGroup* QDockGroup::instance()
 {
-    windowList.append(window);
+    static QDockGroup* sInstance = new QDockGroup();
+
+    return sInstance;
 }
 
-void QDockGroup::dockWindowMoved(QDockableWindow* window, int x, int y)
+DraggingWindow* QDockGroup::draggingWindow()
 {
+    static DraggingWindow* sDraggingWindow = new DraggingWindow();
 
+    return sDraggingWindow;
 }

@@ -5,7 +5,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     qdockablewindow.cpp \
-    qdockgroup.cpp
+    qdockgroup.cpp \
+    draggingwindow.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,6 +18,7 @@ include(deployment.pri)
 
 HEADERS += \
     qdockablewindow.h \
-    qdockgroup.h
+    qdockgroup.h \
+    draggingwindow.h
 
 DISTFILES +=

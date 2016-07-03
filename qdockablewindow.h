@@ -16,6 +16,8 @@ public:
 
     void setDockGroup(QDockGroup* group);
 
+    static QDockableWindow* topLevelAt(const QPoint &pos);
+
 signals:
     void focusIn();
 
@@ -28,6 +30,7 @@ protected:
 public slots:
     void onXChanged(int arg);
     void test01();
+    void startDrag();
 };
 
 #endif // QDOCKABLEWINDOW_H

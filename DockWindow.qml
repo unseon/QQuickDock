@@ -9,7 +9,7 @@ DockableWindow {
     title: qsTr("Hello World")
 
     //flags: Qt.Tool
-    flags: Qt.SubWindow
+    flags: Qt.SplashScreen
 
     color: "transparent"
     property alias title: title.text
@@ -23,7 +23,6 @@ DockableWindow {
 
     onVisibleChanged: {
         console.log("visible changed ", title.text, visible);
-        rootWindow.dockWindowVisibleChanged(this, visible);
     }
 
     Item {
@@ -80,24 +79,43 @@ DockableWindow {
             }
 
             property point orgPos: "0, 0"
+            property bool cancelDragging: false
 
             onPressed: {
                 console.log("onPressed");
                 orgPos.x = mouse.x;
                 orgPos.y = mouse.y;
+
+                cancelDragging = false;
             }
 
             onPositionChanged: {
+                if (cancelDragging) {
+                    return;
+                }
+
                 //console.log(mouse.x, mouse.y);
 
-                stateManager.state = "freeDragging";
+//                stateManager.state = "freeDragging";
 
-                dockWindow.x += mouse.x - orgPos.x;
-                dockWindow.y += mouse.y - orgPos.y;
+//                dockWindow.x += mouse.x - orgPos.x;
+//                dockWindow.y += mouse.y - orgPos.y;
+
+                var diff = (mouse.x - orgPos.x) * (mouse.x - orgPos.x) + (mouse.y - orgPos.y) * (mouse.y - orgPos.y);
+
+                console.log(diff);
+
+                if (diff > 50) {
+                    console.log("start to dragging");
+                    cancelDragging = true;
+
+                    startDrag();
+
+                }
             }
 
             onReleased: {
-                stateManager.state = "";
+                //stateManager.state = "";
             }
         }
     }

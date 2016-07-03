@@ -5,21 +5,24 @@
 #include <QList>
 
 #include "qdockablewindow.h"
+#include "draggingwindow.h"
 
 class QDockGroup : public QObject
 {
     Q_OBJECT
-public:
+private:
     explicit QDockGroup(QObject *parent = 0);
 
-    void addDockWindow(QDockableWindow* window);
-    void dockWindowMoved(QDockableWindow* window, int x, int y);
+public:
+    static QDockGroup* instance();
+    static DraggingWindow* draggingWindow();
+
 signals:
 
 public slots:
 
-private:
-    QList<QDockableWindow*> windowList;
+
+
 };
 
 #endif // QDOCKGROUP_H

@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Window.Dock 1.0
 
-Window {
+DockWindow {
     id: rootWindow
 
     visible: true
@@ -70,6 +70,62 @@ Window {
                 onClicked: {
                     dock02.test01();
                 }
+            }
+        }
+    }
+
+    Window {
+        id: draggingTab
+        visible: false;
+
+        width: tabHeader.width
+        height: tabHeader.height
+
+        flags: Qt.SplashScreen
+
+        property alias title: title.text
+
+        Rectangle {
+            id: tabHeader
+
+            width: 100
+            height: 30
+
+            color: "orange"
+
+            Text {
+                id: title
+                anchors.centerIn: parent
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+
+            property point orgPos: "0, 0"
+
+            onPressed: {
+                console.log("onPressed");
+                orgPos.x = mouse.x;
+                orgPos.y = mouse.y;
+            }
+
+            onPositionChanged: {
+                if (cancelDragging) {
+                    return;
+                }
+
+                //console.log(mouse.x, mouse.y);
+
+                stateManager.state = "freeDragging";
+
+                draggingTab.x += mouse.x - orgPos.x;
+                draggingTab.y += mouse.y - orgPos.y;
+
+            }
+
+            onReleased: {
+                //stateManager.state = "";
             }
         }
     }
