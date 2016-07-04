@@ -11,8 +11,14 @@ public:
 
 
 protected:
+    void mousePressEvent(QMouseEvent *ev);
     void mouseMoveEvent(QMouseEvent *ev);
+    void mouseReleaseEvent(QMouseEvent *ev);
 
+
+private:
+    QPoint mOrigin;
+    bool mPressing;
 };
 
 #endif // DRAGGINGWINDOW_H

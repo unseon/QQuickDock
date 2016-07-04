@@ -8,22 +8,10 @@ DockableWindow {
     height: 480
     title: qsTr("Hello World")
 
-    //flags: Qt.Tool
-    flags: Qt.SplashScreen
+    flags: Qt.FramelessWindowHint
 
     color: "transparent"
     property alias title: title.text
-
-    onFocusIn: {
-        console.log("Focus in : ", title.text);
-
-        console.log("calling dockWindowFocused");
-        rootWindow.focusTo(this);
-    }
-
-    onVisibleChanged: {
-        console.log("visible changed ", title.text, visible);
-    }
 
     Item {
         id: stateManager
@@ -59,6 +47,33 @@ DockableWindow {
     }
 
     Rectangle {
+        id: titleBar
+        width: parent.width
+        height: 30
+
+        color: "orange"
+
+        MouseArea {
+            anchors.fill: parent
+
+            property point orgPos: "0, 0"
+
+            onPressed: {
+                console.log("onPressed");
+                orgPos.x = mouse.x;
+                orgPos.y = mouse.y;
+
+
+            }
+
+            onPositionChanged: {
+                dockWindow.x += mouse.x - orgPos.x;
+                dockWindow.y += mouse.y - orgPos.y;
+            }
+        }
+    }
+
+    Rectangle {
         id: tabHeader
 
         width: 100
@@ -73,10 +88,8 @@ DockableWindow {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                //Qt.quit();
-                //window.x = 0;
-            }
+
+            hoverEnabled: true
 
             property point orgPos: "0, 0"
             property bool cancelDragging: false
@@ -89,29 +102,9 @@ DockableWindow {
                 cancelDragging = false;
             }
 
-            onPositionChanged: {
-                if (cancelDragging) {
-                    return;
-                }
-
-                //console.log(mouse.x, mouse.y);
-
-//                stateManager.state = "freeDragging";
-
-//                dockWindow.x += mouse.x - orgPos.x;
-//                dockWindow.y += mouse.y - orgPos.y;
-
-                var diff = (mouse.x - orgPos.x) * (mouse.x - orgPos.x) + (mouse.y - orgPos.y) * (mouse.y - orgPos.y);
-
-                console.log(diff);
-
-                if (diff > 50) {
-                    console.log("start to dragging");
-                    cancelDragging = true;
-
-                    startDrag();
-
-                }
+            onEntered: {
+                //console.log("onEntered");
+                startDrag();
             }
 
             onReleased: {

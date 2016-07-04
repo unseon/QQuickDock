@@ -8,7 +8,6 @@
 QDockableWindow::QDockableWindow(QWindow* parent)
     : QQuickWindow(parent)
 {
-    connect(this, &QDockableWindow::xChanged, this, &QDockableWindow::onXChanged);
 }
 
 void QDockableWindow::setDockGroup(QDockGroup *group)
@@ -39,11 +38,6 @@ void QDockableWindow::focusInEvent(QFocusEvent *ev)
     //qDebug() << "window" << id << "focused";
 
     emit focusIn();
-}
-
-void QDockableWindow::onXChanged(int arg)
-{
-    //qDebug() << "onXChanged" << arg;
 }
 
 void QDockableWindow::mouseMoveEvent(QMouseEvent *ev)

@@ -28,7 +28,6 @@ protected:
     void focusInEvent(QFocusEvent *ev);
 
 public slots:
-    void onXChanged(int arg);
     void test01();
     void startDrag();
 };

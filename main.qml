@@ -45,6 +45,7 @@ DockWindow {
         visible: true
         width: 400
         height: 300
+        x: 0
 
         title: "dock01"
     }
@@ -52,6 +53,7 @@ DockWindow {
     DockWindow {
         id: dock02
         visible: true
+        x: 400
         width: 300
         height: 200
 
